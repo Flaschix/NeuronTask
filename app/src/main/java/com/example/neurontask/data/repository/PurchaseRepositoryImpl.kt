@@ -15,8 +15,6 @@ class PurchaseRepositoryImpl @Inject constructor(
 
 ) : PurchaseRepository {
 
-    private val coroutineScope = CoroutineScope(Dispatchers.Default)
-
     private val _purchasesStateFlow = MutableStateFlow<List<Purchase>>(emptyList())
 
     private val purchasesStateFlow: StateFlow<List<Purchase>>
@@ -30,11 +28,5 @@ class PurchaseRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getPurchases() = flow {
-        emit(purchasesStateFlow.value)
-    }.stateIn(
-        scope = coroutineScope,
-        started = SharingStarted.Lazily,
-        initialValue = listOf()
-    )
+    override suspend fun getPurchases() = purchasesStateFlow
 }
