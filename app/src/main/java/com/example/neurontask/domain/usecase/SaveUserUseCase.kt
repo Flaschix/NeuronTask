@@ -5,7 +5,7 @@ import com.example.neurontask.domain.repository.UserRepository
 import javax.inject.Inject
 
 class SaveUserUseCase @Inject constructor(private val repository: UserRepository)  {
-    suspend operator fun invoke(user: User){
-        repository.saveUser(user)
+    suspend operator fun invoke(user: User): Result<Unit> {
+        return repository.saveUser(user)
     }
 }
