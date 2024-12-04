@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.StateFlow
 interface  UserRepository{
 
     suspend fun saveUser(user: User) : Result<Unit>
-    suspend fun getUser(): StateFlow<User>?
+    suspend fun getUser(): StateFlow<User?>
 }

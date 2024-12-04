@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class GetUserUseCase @Inject constructor(private val repository: UserRepository) {
-    suspend operator fun invoke(): StateFlow<User>? {
+    suspend operator fun invoke(): StateFlow<User?> {
         return repository.getUser()
     }
 }
