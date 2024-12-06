@@ -129,7 +129,7 @@ fun InputFieldsSection(
 fun TermsAndConditionsText() {
     Text(
         buildAnnotatedString {
-            append(stringResource(id = R.string.user_terms_part_1))
+            append(stringResource(id = R.string.user_terms_part_1) + ' ')
             withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
                 append(stringResource(id = R.string.user_terms_part_2))
             }

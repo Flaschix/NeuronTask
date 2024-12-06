@@ -60,6 +60,9 @@ class RegistrationScreenViewModel @Inject constructor(
         if (fields[RegistrationField.PHONE].orEmpty().length != 16) {
             errors.add(RegistrationField.PHONE to "Введите корректный номер телефона")
         }
+        if (!fields[RegistrationField.PHONE].orEmpty().matches(Regex("\\d{16}"))) {
+            errors.add(RegistrationField.PHONE to "Введите корректный номер телефона")
+        }
         if (fields[RegistrationField.CODE].isNullOrBlank()) {
             errors.add(RegistrationField.CODE to "Введите код")
         }
