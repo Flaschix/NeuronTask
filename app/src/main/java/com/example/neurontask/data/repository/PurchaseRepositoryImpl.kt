@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class PurchaseRepositoryImpl @Inject constructor(
     private val _purchasesStateFlow = MutableStateFlow<List<Purchase>>(emptyList())
 
     private val purchasesStateFlow: StateFlow<List<Purchase>>
-        get() = _purchasesStateFlow
+        get() = _purchasesStateFlow.asStateFlow()
 
     init {
         _purchasesStateFlow.value = listOf(

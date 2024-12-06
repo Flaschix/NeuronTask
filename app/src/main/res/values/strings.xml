@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">NeuronTask</string>
+
+    <string name="back">Назад</string>
+    <string name="registration_btn">Регистрация для клиентов банка</string>
+    <string name="user_terms_part_1">Нажимая кнопку продолжить, вы соглашаетесь </string>
+    <string name="user_terms_part_2">с условиями участия</string>
+    <string name="next">Продолжить</string>
+    <string name="phone">Номер участника</string>
+    <string name="code">Код</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="phone_tip">Номер из 16 цифр, который вы получили от банка</string>
+    <string name="code_tip">Код, который вы получили от банка</string>
+    <string name="name_tip">Имя (на латинице, как в загранпаспорте)</string>
+    <string name="surname_tip">Фамилия (на латинице, как в загранпаспорте)</string>
+    <string name="incorrect_data">Некорректные данные</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="my_purchases">Мои покупки</string>
+    <string name="settings">Настройки</string>
+    <string name="email">Email</string>
+    <string name="need_to_confirm">Необходимо подтвердить</string>
+    <string name="enter_by_bio">Вход по биометрии</string>
+    <string name="change_code">Сменить 4-x значный код</string>
+    <string name="lang">Язык</string>
+    <string name="ru">Русский</string>
+    <string name="data_miss">Данные отсутствуют</string>
+
 </resources>

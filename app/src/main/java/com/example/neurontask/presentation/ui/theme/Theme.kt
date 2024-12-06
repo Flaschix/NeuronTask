@@ -1,6 +1,5 @@
-package com.example.neurontask.ui.theme
+package com.example.neurontask.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -18,9 +17,13 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = White,
+    secondary = Gray,
+    tertiary = Pink40,
+    background = Purple,
+    onBackground = DarkPurple,
+    error = Red,
+    onError = Pink
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -28,7 +31,7 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
+
     onSurface = Color(0xFF1C1B1F),
     */
 )
@@ -53,6 +56,16 @@ fun NeuronTaskTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        content = content
+    )
+}
+
+
+@Composable
+fun AppTheme(content: @Composable () -> Unit) {
+    MaterialTheme(
+        typography = AppTypography,
+        colorScheme = LightColorScheme,
         content = content
     )
 }

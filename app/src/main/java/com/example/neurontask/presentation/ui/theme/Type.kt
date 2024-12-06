@@ -1,4 +1,4 @@
-package com.example.neurontask.ui.theme
+package com.example.neurontask.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -31,4 +31,27 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val AppTypography = Typography(
+    bodyLarge = TextStyle(
+        fontSize = 22.sp,
+        fontWeight = FontWeight.Bold,
+        color = White
+    ),
+    bodyMedium = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Normal,
+        color = Gray
+    ),
+    bodySmall = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
+        color = White
+    ),
+    headlineLarge = TextStyle(
+        fontSize = 30.sp,
+        fontWeight = FontWeight.Bold,
+        color = White
+    )
 )

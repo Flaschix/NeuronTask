@@ -12,9 +12,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -27,23 +30,14 @@ class UserRepositoryImpl @Inject constructor(
     private val userStateFlow: StateFlow<UserState>
         get() = _userStateFlow
 
+    private val _userFlow = MutableSharedFlow<User>(replay = 1)
+    private val userFlow: SharedFlow<User> = _userFlow.asSharedFlow()
 
-    private val updateUserFlow = MutableSharedFlow<User>()
-
-    private val user: SharedFlow<User> = flow {
-        val user = sharedPreferences.getString("firstName", null)?.let {
-            User(
-                firstName = it,
-                lastName = sharedPreferences.getString("lastName", "") ?: "",
-                phone = sharedPreferences.getString("phone", "") ?: ""
-            )
+    init {
+        coroutineScope.launch {
+            checkUserState()
         }
-        user?.let { emit(user) }
-    }.mergeWith(updateUserFlow).shareIn(
-        scope = coroutineScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        replay = 1
-    )
+    }
 
     override suspend fun saveUser(user: User): Result<Unit> {
         return runCatching {
@@ -53,21 +47,30 @@ class UserRepositoryImpl @Inject constructor(
                 .putString("phone", user.phone)
                 .apply()
 
-            updateUserFlow.emit(user)
-
-            if(userStateFlow.value != UserState.Authorized) _userStateFlow.value = UserState.Authorized
+            _userFlow.emit(user)
+            _userStateFlow.value = UserState.Authorized
         }
     }
 
-    override suspend fun getUser() = user
+    override suspend fun getUser(): SharedFlow<User> = userFlow
 
     override suspend fun getUserStateFlow(): StateFlow<UserState> = userStateFlow
 
     override suspend fun checkUserState(): Result<Unit> {
         return runCatching {
-            val isUserSaved = sharedPreferences.getString("firstName", null) != null
-            _userStateFlow.value = if (isUserSaved) UserState.Authorized else UserState.NotAuthorized
+            val firstName = sharedPreferences.getString("firstName", null)
+            val lastName = sharedPreferences.getString("lastName", "") ?: ""
+            val phone = sharedPreferences.getString("phone", "") ?: ""
+
+            if (firstName != null) {
+                val user = User(firstName = firstName, lastName = lastName, phone = phone)
+                _userFlow.emit(user)
+                _userStateFlow.value = UserState.Authorized
+            } else {
+                _userStateFlow.value = UserState.NotAuthorized
+            }
         }
     }
 }
+
 
